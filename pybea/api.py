@@ -524,6 +524,58 @@ class RegionalProductRequest(DataRequest):
         required_params.update(params)
         super(RegionalProductRequest, self).__init__(**required_params)
 
+class Regional(DataRequest):
+
+    def __init__(self, UserID, TableName, LineCode, GeoFips, ResultFormat='JSON', **params):
+        r"""
+        Create an instance of the RegionalIncomeRequest class.
+
+        Parameters
+        ----------
+        UserID: str
+            A valid UserID necessary for accessing the BEA data API.
+        TableName : str
+            Published table name.
+        LineCode : int
+            Line code in table.
+        GeoFips : str or list(str)
+            Comma-delimited list of 5-character geographic codes; 'COUNTY' for
+            all counties, 'STATE' for all states, 'MSA' for all Metropolitan
+            Statistical Areas, 'MIC' for all Micropolitan Areas, 'PORT' for all
+            state metropolitan/nonmetropolitan portions, 'DIV' for all
+            Metropolitan Divisions, 'CSA' for all Combined Statistical Areas,
+            state post office abbreviation for all counties in one state
+            (e.g. 'NY').
+        ResultFormat : str (default='JSON')
+            The API returns data in one of two formats: JSON or XML. The
+            ResultFormat parameter can be included on any request to specify
+            the format of the results. The valid values for ResultFormat are
+            'JSON' and 'XML'.
+        params : dict
+            Dictionary of optional parameters.
+
+        Notes
+        -----
+        The optional parameters for Regional are:
+
+        Year : str or list(str) (default='LAST5')
+            A string representation of the year for which data is being
+            requested. Multiple years are requested by specifying them as a
+            list: `Year=['2000', '2005' , '2010']`. Note that Year will default
+            to last five available years, 'LAST5', if the parameter is not
+            specified. Additional options are `LAST10` and `ALL`.
+
+        """
+        required_params = {'UserID': UserID,
+                           'Method': 'GetData',
+                           'DataSetName': 'Regional',
+                           'TableName': TableName,
+                           'LineCode': LineCode,
+                           'GeoFips': GeoFips,
+                           'ResultFormat': ResultFormat}
+        required_params.update(params)
+        super(Regional, self).__init__(**required_params)
+
 
 class RegionalIncomeRequest(DataRequest):
 
